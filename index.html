@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guia de PDI 2026 - Cury</title>
+    <title>Gestão de Performance - Cury</title>
     
     <meta name="robots" content="noindex">
 
@@ -40,381 +40,150 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
+        /* Configuração do Fundo Fixo */
         body { 
             background-color: #f4f4f4; 
             color: #1e293b; 
-            background-image: linear-gradient(rgba(244, 244, 244, 0.88), rgba(244, 244, 244, 0.60)), url('fundo.png');
+            background-image: linear-gradient(rgba(244, 244, 244, 0.88), rgba(244, 244, 244, 0.70)), url('fundo.png');
             background-attachment: fixed;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
         }
-        
-        .step-content { display: none; }
-        .step-content.open { display: block; animation: fadeIn 0.3s ease-in-out; }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
 
-        .print-img {
-            width: 100%;
-            border-radius: 0.5rem;
-            border: 1px solid #e2e8f0;
-            margin-top: 1rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        /* Efeito de flutuação nos Cards */
+        .module-card {
+            transition: all 0.3s ease;
         }
-
-        @media print {
-            @page { margin: 1cm; }
-            body { background-image: none !important; background-color: white !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-            .print-hidden { display: none !important; }
-            .step-content { display: block !important; border-top: 1px solid #e2e8f0; }
-            .step-header-print { display: flex !important; }
-            .step-header-screen { display: none !important; }
-            .step-card { break-inside: avoid; border: 1px solid #cbd5e1 !important; margin-bottom: 24px !important; box-shadow: none !important; }
-            img { break-inside: avoid; }
-            .print-bg-white { background-color: white !important; }
-            .print-border { border: 1px solid #cbd5e1 !important; }
-            .print-text-dark { color: #1e293b !important; }
+        .module-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: #1749e3; /* cury-blue */
+        }
+        
+        .card-icon-container {
+            transition: all 0.3s ease;
+        }
+        .module-card:hover .card-icon-container {
+            background-color: #17379b; /* cury-dark */
+            color: #ffffff;
+        }
+        
+        /* Suavizar levemente os cards inativos */
+        .card-inactive {
+            opacity: 0.9;
+        }
+        .card-inactive:hover {
+            opacity: 1;
         }
     </style>
 
     <script>
       window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
     </script>
-    <script src="/_vercel/insights/script.js"></script>
+    <script defer src="/_vercel/insights/script.js"></script>
 
 </head>
-<body class="font-sans antialiased selection:bg-cury-light/30 selection:text-cury-dark flex flex-col min-h-screen relative">
+<body class="font-sans antialiased selection:bg-cury-light/30 selection:text-cury-dark flex flex-col min-h-screen">
 
-    <!-- Overlay (Fundo escuro) e Menu Lateral -->
-    <div id="side-menu-overlay" class="fixed inset-0 bg-black/50 z-[60] hidden opacity-0 transition-opacity duration-300" onclick="toggleMenu()"></div>
-    
-    <div id="side-menu" class="fixed top-0 left-0 h-full w-72 bg-white shadow-2xl z-[70] transform -translate-x-full transition-transform duration-300 ease-in-out flex flex-col print:hidden">
-        <div class="bg-cury-dark p-6 flex items-center justify-between">
-            <div class="flex items-center gap-3 text-white">
-                <i data-lucide="menu"></i>
-                <span class="font-bold text-lg">Menu de Acesso</span>
-            </div>
-            <button onclick="toggleMenu()" class="text-white hover:text-cury-light transition-colors">
-                <i data-lucide="x"></i>
-            </button>
-        </div>
-        
-        <nav class="p-4 flex-grow flex flex-col gap-2">
-            <!-- LEMBRETE: Altere o link abaixo para o link real do Hub -->
-            <a href="https://pagina-de-testes-two.vercel.app/" class="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-100 text-cury-dark font-medium transition-colors">
-                <i data-lucide="layout-grid" class="w-5 h-5 text-cury-light"></i>
-                Hub Central
-            </a>
-            <!-- LEMBRETE: Altere o link abaixo para o link real de Metas -->
-            <a href="https://manual-metas-rh-cury.vercel.app/" class="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-100 text-cury-dark font-medium transition-colors">
-                <i data-lucide="target" class="w-5 h-5 text-cury-green"></i>
-                Ciclo de Metas
-            </a>
-            
-            <div class="w-full h-px bg-slate-200 my-2"></div>
-            
-            <!-- Aba Atual (Desabilitada para clique, serve como indicador) -->
-            <div class="flex items-center gap-3 p-3 rounded-lg bg-cury-blue/10 text-cury-blue font-bold border border-cury-blue/20">
-                <i data-lucide="trending-up" class="w-5 h-5"></i>
-                Guia do PDI
-                <span class="ml-auto w-2 h-2 rounded-full bg-cury-blue"></span>
-            </div>
-        </nav>
-        
-        <div class="p-4 border-t border-slate-200">
-            <p class="text-xs text-slate-500 font-medium text-center">Cury Construtora - Remuneração</p>
-        </div>
-    </div>
-
-    <header class="bg-cury-dark text-white border-b-4 border-cury-green sticky top-0 z-50 shadow-md print:static print:shadow-none">
-        <div class="max-w-5xl mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
+    <header class="bg-cury-dark text-white border-b-4 border-cury-green sticky top-0 z-50 shadow-md">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-4">
-                
-                <!-- Botão do Menu Hambúrguer na Barra -->
-                <button onclick="toggleMenu()" class="p-2 -ml-2 hover:bg-white/10 rounded-lg transition-colors print:hidden flex items-center justify-center">
-                    <i data-lucide="menu" class="w-6 h-6"></i>
-                </button>
-                <div class="h-8 w-px bg-white/20 print:hidden hidden md:block"></div>
-
-                <img src="logo.png" alt="Logo Cury" class="h-10 w-auto print:invert-0" onerror="this.src='https://placehold.co/100x40/17379b/ffffff?text=CURY'">
-                <div class="h-8 w-px bg-white/20 hidden md:block print:bg-slate-400"></div>
+                <img src="logo.png" alt="Logo Cury" class="h-10 w-auto" onerror="this.src='https://placehold.co/100x40/17379b/ffffff?text=CURY'">
+                <div class="h-8 w-px bg-white/20 hidden md:block"></div>
                 <div>
-                    <h1 class="text-xl font-extrabold tracking-tight uppercase">Portal de Performance</h1>
-                    <p class="text-xs text-cury-light font-medium print:text-slate-500 hover:text-white transition-colors hover:underline">
+                    <h1 class="text-xl font-extrabold tracking-tight uppercase">Gestão de Performance</h1>
+                    <p class="text-xs text-cury-light font-medium hover:text-white transition-colors hover:underline">
                         <a href="mailto:remuneracao.rh@cury.net">RH - Remuneração</a>
                     </p>
                 </div>
             </div>
             
             <div class="flex items-center gap-3">
-                <div class="text-sm font-bold bg-cury-blue py-2 px-5 rounded-full text-white flex items-center gap-2 border border-cury-light/30 shadow-inner print:border-slate-400 print:text-cury-dark print:bg-slate-100">
-                    <i data-lucide="calendar" class="w-4 h-4"></i> Ciclo 2026
+                <div class="text-sm font-bold bg-white/10 py-2 px-5 rounded-full text-white flex items-center gap-2 border border-white/20">
+                    <i data-lucide="layout-grid" class="w-4 h-4"></i> Hub Central
                 </div>
             </div>
         </div>
     </header>
 
-    <main class="flex-grow max-w-5xl mx-auto px-6 py-12 print:py-6 w-full">
+    <main class="flex-grow max-w-6xl mx-auto px-6 py-12 w-full">
         
-        <section class="mb-12 text-center max-w-3xl mx-auto print:mb-8">
+        <section class="mb-12 text-center max-w-3xl mx-auto">
             <div class="inline-flex items-center justify-center p-3 bg-cury-blue/10 text-cury-blue rounded-full mb-4">
-                <i data-lucide="trending-up" class="w-8 h-8"></i>
+                <i data-lucide="rocket" class="w-8 h-8"></i>
             </div>
-            <h2 class="text-3xl md:text-4xl font-extrabold text-cury-dark mb-4">Guia do PDI 2026</h2>
-            <p class="text-lg text-slate-600 font-medium leading-relaxed bg-white/60 p-4 rounded-xl shadow-sm border border-slate-200 print-border">
-                O <strong>Plano de Desenvolvimento Individual (PDI)</strong> é a ferramenta que estrutura o seu crescimento e do seu time na Cury. Siga este passo a passo para cadastrar, aprovar e comprovar a execução das suas ações de desenvolvimento no sistema LG.
+            <h2 class="text-4xl font-extrabold text-cury-dark mb-4">Gestão de Performance 2026</h2>
+            <p class="text-lg text-slate-600 font-medium leading-relaxed bg-white/80 p-5 rounded-xl shadow-sm border border-slate-200">
+                Bem-vindo ao portal unificado de gestão e desenvolvimento da Cury. Selecione o módulo desejado abaixo para acessar guias, metodologias e acompanhar a evolução da sua equipe.
             </p>
         </section>
 
-        <!-- Cronograma -->
-        <section class="mb-16 print:mb-8 print:break-inside-avoid">
-            <h3 class="text-xl font-bold text-cury-dark mb-6 flex items-center gap-2 bg-white/60 w-fit pr-4 rounded-full">
-                <i data-lucide="calendar" class="text-cury-green"></i> Cronograma Oficial
-            </h3>
-            
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                <!-- Item 1 (Destaque) -->
-                <div class="flex flex-col items-center p-4 rounded-xl border-2 border-cury-orange bg-cury-orange/10 shadow-md md:-translate-y-1 relative print-border print-bg-white">
-                    <span class="absolute -top-3 bg-cury-orange text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm print-hidden">Foco Atual</span>
-                    <div class="p-3 rounded-full mb-3 bg-cury-orange text-white print-bg-white print-border print-text-dark"><i data-lucide="video"></i></div>
-                    <span class="text-[13px] font-bold text-center mb-1 text-cury-orange print-text-dark">08/05</span>
-                    <span class="text-[11px] text-slate-700 text-center font-medium leading-tight">Reuniões de Alinhamento (10h e 15h)</span>
-                </div>
-                
-                <!-- Item 2 -->
-                <div class="flex flex-col items-center p-4 rounded-xl border-2 border-slate-200 bg-white print-border print-bg-white">
-                    <div class="p-3 rounded-full mb-3 bg-slate-100 text-slate-500 print-bg-white print-border"><i data-lucide="pen-tool"></i></div>
-                    <span class="text-[13px] font-bold text-center mb-1 text-cury-dark">11/05 a 18/05</span>
-                    <span class="text-[11px] text-slate-600 text-center font-medium leading-tight">Inserção de Ações e Contratação</span>
-                </div>
-                
-                <!-- Item 3 -->
-                <div class="flex flex-col items-center p-4 rounded-xl border-2 border-slate-200 bg-white print-border print-bg-white">
-                    <div class="p-3 rounded-full mb-3 bg-slate-100 text-slate-500 print-bg-white print-border"><i data-lucide="user-check"></i></div>
-                    <span class="text-[13px] font-bold text-center mb-1 text-cury-dark">19/05 a 26/05</span>
-                    <span class="text-[11px] text-slate-600 text-center font-medium leading-tight">Validação do Gestor e Visto Final</span>
-                </div>
-                
-                <!-- Item 4 -->
-                <div class="flex flex-col items-center p-4 rounded-xl border-2 border-slate-200 bg-white print-border print-bg-white">
-                    <div class="p-3 rounded-full mb-3 bg-slate-100 text-slate-500 print-bg-white print-border"><i data-lucide="check-square"></i></div>
-                    <span class="text-[13px] font-bold text-center mb-1 text-cury-dark">27/05 a 05/06</span>
-                    <span class="text-[11px] text-slate-600 text-center font-medium leading-tight">Validação Oficial pelo RH</span>
-                </div>
-                
-                <!-- Item 5 -->
-                <div class="flex flex-col items-center p-4 rounded-xl border-2 border-slate-200 bg-white print-border print-bg-white">
-                    <div class="p-3 rounded-full mb-3 bg-slate-100 text-slate-500 print-bg-white print-border"><i data-lucide="search"></i></div>
-                    <span class="text-[13px] font-bold text-center mb-1 text-cury-dark">31/08 e 26/11</span>
-                    <span class="text-[11px] text-slate-600 text-center font-medium leading-tight">Acompanhamentos pelo RH</span>
-                </div>
-                
-                <!-- Item 6 -->
-                <div class="flex flex-col items-center p-4 rounded-xl border-2 border-slate-200 bg-white print-border print-bg-white">
-                    <div class="p-3 rounded-full mb-3 bg-slate-100 text-slate-500 print-bg-white print-border"><i data-lucide="flag"></i></div>
-                    <span class="text-[13px] font-bold text-center mb-1 text-cury-dark">27/11/2026</span>
-                    <span class="text-[11px] text-slate-600 text-center font-medium leading-tight">Encerramento do PDI no Ciclo</span>
-                </div>
-            </div>
-            
-            <p class="text-xs text-slate-500 mt-4 text-center font-medium">* O cumprimento dos prazos é essencial para garantir a consistência e a efetividade do processo.</p>
-        </section>
-
         <section class="mb-12">
-            <h3 class="text-xl font-bold text-cury-dark mb-6 flex items-center gap-2 bg-white/60 w-fit pr-4 rounded-full">
-                <i data-lucide="check-circle-2" class="text-cury-green"></i> Passo a Passo no Sistema
-            </h3>
-
-            <!-- PASSO 1 -->
-            <div class="step-card border border-slate-200 rounded-xl mb-4 bg-white shadow-sm overflow-hidden">
-                <button onclick="toggleStep(1)" class="step-header-screen w-full flex items-center justify-between p-5 text-left hover:bg-slate-50 print-hidden transition-colors">
-                    <div class="flex items-center gap-4">
-                        <div class="flex items-center justify-center w-10 h-10 rounded-full bg-cury-blue/10 text-cury-blue font-extrabold border border-cury-blue/20">1</div>
-                        <div class="flex items-center gap-2">
-                            <i data-lucide="monitor" class="text-cury-light"></i>
-                            <h3 class="text-lg font-bold text-cury-dark">Acessando e Iniciando o PDI</h3>
-                        </div>
-                    </div>
-                    <i data-lucide="chevron-down" id="icon-1" class="text-cury-light transition-transform duration-300"></i>
-                </button>
-                <div class="step-header-print hidden print:flex items-center gap-4 p-4 bg-slate-50 border-b border-slate-200 print-bg-white">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full bg-slate-200 text-cury-blue font-extrabold border border-slate-300 print-border">1</div>
-                    <h3 class="text-xl font-bold text-cury-dark">Acessando e Iniciando o PDI</h3>
-                </div>
+            
+            <div class="mb-10">
+                <h3 class="text-lg font-bold text-cury-dark mb-4 flex items-center gap-2">
+                    <i data-lucide="check-circle-2" class="w-5 h-5 text-cury-green"></i> Módulos Disponíveis
+                </h3>
                 
-                <div id="content-1" class="step-content bg-slate-50/50 border-t border-slate-100 print-bg-white">
-                    <div class="p-6 print:p-4">
-                        <p class="text-slate-600 font-medium">Na sua tela inicial do autoatendimento da LG, clique em <strong class="text-cury-dark">CICLO DE PERFORMANCE</strong>.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <a href="http://manual-metas-rh-cury.vercel.app" class="module-card bg-white rounded-2xl p-6 border-2 border-slate-200 shadow-sm flex flex-col h-full relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 bg-cury-green text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">Ativo</div>
                         
-                        <!-- pdi-1 mantido como .jpg -->
-                        <img src="pdi-1.jpg" alt="Tela Inicial LG" class="print-img print-border" loading="lazy">
-                        
-                        <p class="text-slate-600 font-medium mt-4">Na aba <strong class="text-cury-dark">"ATIVIDADES PENDENTES"</strong>, localize a atividade para iniciar preparação. Verifique se você está acessando o ciclo de <strong class="text-cury-dark">2026</strong>.</p>
-                        
-                        <!-- Alterado para .jpeg -->
-                        <img src="pdi-2.jpeg" alt="Atividades Pendentes" class="print-img print-border" loading="lazy">
-                        
-                        <p class="text-slate-600 font-medium mt-4">Identifique a área de inclusão do PDI, acessando o caminho: <strong class="text-cury-dark">"Incluir" &gt; "Incluir ações avulsas"</strong>.</p>
-                        
-                        <!-- Alterado para .jpeg -->
-                        <img src="pdi-3.jpeg" alt="Incluir Ações" class="print-img print-border" loading="lazy">
-                    </div>
+                        <div class="card-icon-container w-14 h-14 rounded-2xl bg-cury-bg text-cury-dark flex items-center justify-center mb-6">
+                            <i data-lucide="target" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-cury-dark mb-2">Ciclo de Metas</h3>
+                        <p class="text-sm text-slate-600 font-medium mb-6 flex-grow">Guia completo para contratação, acompanhamento e avaliação dos objetivos SMART.</p>
+                        <div class="flex items-center text-cury-blue font-bold text-sm gap-2">
+                            Acessar Módulo <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </a>
+
+                    <a href="http://manual-pdi-cury.vercel.app" class="module-card bg-white rounded-2xl p-6 border-2 border-slate-200 shadow-sm flex flex-col h-full relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 bg-cury-green text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">Ativo</div>
+
+                        <div class="card-icon-container w-14 h-14 rounded-2xl bg-cury-bg text-cury-dark flex items-center justify-center mb-6">
+                            <i data-lucide="trending-up" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-cury-dark mb-2">PDI</h3>
+                        <p class="text-sm text-slate-600 font-medium mb-6 flex-grow">Plano de Desenvolvimento Individual. Estruture e acompanhe o seu crescimento e do seu time.</p>
+                        <div class="flex items-center text-cury-blue font-bold text-sm gap-2">
+                            Acessar Módulo <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </a>
                 </div>
             </div>
 
-            <!-- PASSO 2 -->
-            <div class="step-card border border-slate-200 rounded-xl mb-4 bg-white shadow-sm overflow-hidden">
-                <button onclick="toggleStep(2)" class="step-header-screen w-full flex items-center justify-between p-5 text-left hover:bg-slate-50 print-hidden transition-colors">
-                    <div class="flex items-center gap-4">
-                        <div class="flex items-center justify-center w-10 h-10 rounded-full bg-cury-blue/10 text-cury-blue font-extrabold border border-cury-blue/20">2</div>
-                        <div class="flex items-center gap-2">
-                            <i data-lucide="list-checks" class="text-cury-light"></i>
-                            <h3 class="text-lg font-bold text-cury-dark">Construção e Cadastro das Ações</h3>
-                        </div>
-                    </div>
-                    <i data-lucide="chevron-down" id="icon-2" class="text-cury-light transition-transform duration-300"></i>
-                </button>
-                <div class="step-header-print hidden print:flex items-center gap-4 p-4 bg-slate-50 border-b border-slate-200 print-bg-white">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full bg-slate-200 text-cury-blue font-extrabold border border-slate-300 print-border">2</div>
-                    <h3 class="text-xl font-bold text-cury-dark">Construção e Cadastro das Ações</h3>
-                </div>
+            <div class="w-full h-px bg-slate-300 my-8"></div>
+
+            <div>
+                <h3 class="text-lg font-bold text-slate-500 mb-4 flex items-center gap-2">
+                    <i data-lucide="clock" class="w-5 h-5"></i> Em Breve
+                </h3>
                 
-                <div id="content-2" class="step-content bg-slate-50/50 border-t border-slate-100 print-bg-white">
-                    <div class="p-6 print:p-4">
-                        
-                        <div class="bg-white border-l-4 border-cury-orange p-5 shadow-sm rounded-r-lg print-border mb-6">
-                            <h4 class="font-bold text-cury-dark flex items-center gap-2 mb-2"><i data-lucide="alert-circle" class="text-cury-orange w-5 h-5 print-text-dark"></i> Regra de Ouro do PDI</h4>
-                            <p class="text-sm text-slate-700 font-medium">O preenchimento deve ser realizado de acordo com a quantidade de ações definidas, considerando o <strong class="text-cury-orange uppercase">mínimo de 3 ações e o máximo de 5 ações</strong> para o plano de desenvolvimento.</p>
-                        </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <div class="module-card card-inactive bg-white rounded-2xl p-6 border-2 border-slate-200 shadow-sm flex flex-col h-full relative overflow-hidden group cursor-default">
+                        <div class="absolute top-0 right-0 bg-slate-200 text-slate-500 text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">Em Breve</div>
 
-                        <p class="text-slate-600 font-medium mb-4">Defina os itens de cada campo do PDI, preenchendo corretamente as informações obrigatórias:</p>
-                        <ul class="list-disc pl-5 text-sm text-slate-700 font-medium space-y-1 mb-6">
-                            <li>Item a ser desenvolvido (Ex: Comunicação, Foco no Resultado).</li>
-                            <li>Tipo de ação (Formal, Vivencial ou Social).</li>
-                            <li>Nome da ação.</li>
-                            <li>Descrição da ação.</li>
-                            <li>Objetivo.</li>
-                            <li>Período da ação (Não se esqueça de incluir prazos claros!).</li>
-                        </ul>
-                        
-                        <div class="grid md:grid-cols-3 gap-4 mb-6">
-                            <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm border-t-4 border-t-cury-blue print-border">
-                                <h4 class="font-bold text-cury-blue mb-1 text-sm print-text-dark">Ações Formais</h4>
-                                <p class="text-xs text-slate-600 font-medium">Treinamentos, cursos, workshops, certificações e palestras oficiais.</p>
-                            </div>
-                            <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm border-t-4 border-t-cury-purple print-border">
-                                <h4 class="font-bold text-cury-purple mb-1 text-sm print-text-dark">Aprendizado Social</h4>
-                                <p class="text-xs text-slate-600 font-medium">Mentorias, shadowing, rodas de conversa e feedbacks com lideranças.</p>
-                            </div>
-                            <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm border-t-4 border-t-cury-green print-border">
-                                <h4 class="font-bold text-cury-green mb-1 text-sm print-text-dark">Ações Vivenciais</h4>
-                                <p class="text-xs text-slate-600 font-medium">Experiências práticas: assumir novos projetos ou resolver novos problemas.</p>
-                            </div>
+                        <div class="card-icon-container w-14 h-14 rounded-2xl bg-cury-bg text-cury-dark flex items-center justify-center mb-6">
+                            <i data-lucide="users" class="w-7 h-7"></i>
                         </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 mb-6 items-start">
-                            <div class="flex flex-col items-center">
-                                <span class="text-sm font-bold text-cury-dark mb-2 text-center w-full">Campos de Inclusão Vazios</span>
-                                <img src="pdi-4.jpeg" alt="Campos de Inclusão" class="print-img print-border m-0" style="width: 95%;" loading="lazy">
-                            </div>
-                            <div class="flex flex-col items-center">
-                                <span class="text-sm font-bold text-cury-dark mb-2 text-center w-full">Exemplo Prático (Ação Vivencial)</span>
-                                <img src="pdi-5.jpeg" alt="Modelo de PDI Preenchido" class="print-img print-border m-0" style="width: 95%;" loading="lazy">
-                            </div>
-                        </div>
-
-                        <p class="text-slate-600 font-medium mt-6">Após incluir entre 3 e 5 ações, o profissional deverá concluir o preenchimento na tela principal. O fluxo seguirá automaticamente para o gestor responsável.</p>
-                        
-                        <img src="pdi-6.jpeg" alt="Concluir PDI" class="print-img print-border" loading="lazy">
+                        <h3 class="text-xl font-bold text-cury-dark mb-2">Competências</h3>
+                        <p class="text-sm text-slate-600 font-medium mb-6 flex-grow">Guia completo de Avaliação Comportamental e Cultural.</p>
                     </div>
-                </div>
-            </div>
 
-            <!-- PASSO 3 -->
-            <div class="step-card border border-slate-200 rounded-xl mb-4 bg-white shadow-sm overflow-hidden">
-                <button onclick="toggleStep(3)" class="step-header-screen w-full flex items-center justify-between p-5 text-left hover:bg-slate-50 print-hidden transition-colors">
-                    <div class="flex items-center gap-4">
-                        <div class="flex items-center justify-center w-10 h-10 rounded-full bg-cury-blue/10 text-cury-blue font-extrabold border border-cury-blue/20">3</div>
-                        <div class="flex items-center gap-2">
-                            <i data-lucide="user-check" class="text-cury-light"></i>
-                            <h3 class="text-lg font-bold text-cury-dark">Aprovação do Gestor e Visto Final</h3>
-                        </div>
-                    </div>
-                    <i data-lucide="chevron-down" id="icon-3" class="text-cury-light transition-transform duration-300"></i>
-                </button>
-                <div class="step-header-print hidden print:flex items-center gap-4 p-4 bg-slate-50 border-b border-slate-200 print-bg-white">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full bg-slate-200 text-cury-blue font-extrabold border border-slate-300 print-border">3</div>
-                    <h3 class="text-xl font-bold text-cury-dark">Aprovação do Gestor e Visto Final</h3>
-                </div>
-                
-                <div id="content-3" class="step-content bg-slate-50/50 border-t border-slate-100 print-bg-white">
-                    <div class="p-6 print:p-4">
-                        <h4 class="font-bold text-cury-dark mb-2"><i data-lucide="users" class="inline w-4 h-4 mr-1 text-cury-blue"></i> Para o Gestor (Aprovação):</h4>
-                        <p class="text-slate-600 font-medium mb-4">Nesta etapa, o gestor deve analisar as etapas do PDI da sua equipe. Clique na pendência e selecione <strong class="text-cury-dark">"Alterar/Validar"</strong>.</p>
-                        <img src="pdi-7.jpeg" alt="Gestor Alterar Validar" class="print-img print-border" loading="lazy">
+                    <div class="module-card card-inactive bg-white rounded-2xl p-6 border-2 border-slate-200 shadow-sm flex flex-col h-full relative overflow-hidden group cursor-default">
+                        <div class="absolute top-0 right-0 bg-slate-200 text-slate-500 text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">Em Breve</div>
                         
-                        <p class="text-slate-600 font-medium mb-4 mt-4">Se estiverem corretos, finalize clicando em <strong class="text-cury-green">"Concluir"</strong>. Caso seja necessário alguma alteração ou inclusão, clique em <strong class="text-cury-orange">"Editar"</strong>.</p>
-                        <img src="pdi-8.jpeg" alt="Gestor Concluir ou Editar" class="print-img print-border" loading="lazy">
-
-                        <div class="w-full h-px bg-slate-200 my-8 print-border"></div>
-
-                        <h4 class="font-bold text-cury-dark mb-2"><i data-lucide="user" class="inline w-4 h-4 mr-1 text-cury-green"></i> Para o Profissional (Visto Final):</h4>
-                        <p class="text-slate-600 font-medium mb-4">Após a aprovação do gestor, o profissional deverá realizar o visto do PDI. As telas são as mesmas da aprovação do gestor. A única diferença é que, na página inicial, o nome da ação aparecerá como <strong class="text-cury-dark">"Vistar"</strong>, e a opção de conclusão servirá apenas para confirmar a ciência e a concordância com o plano, sem possibilidade de novas edições no sistema.</p>
+                        <div class="card-icon-container w-14 h-14 rounded-2xl bg-cury-bg text-cury-dark flex items-center justify-center mb-6">
+                            <i data-lucide="play-circle" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-cury-dark mb-2">Biblioteca de Metodologias</h3>
+                        <p class="text-sm text-slate-600 font-medium mb-6 flex-grow">Pílulas de conhecimento e conceitos rápidos sobre Feedback SCI, Matriz de Competências e Metas SMART.</p>
                     </div>
-                </div>
-            </div>
 
-            <!-- PASSO 4 -->
-            <div class="step-card border border-slate-200 rounded-xl mb-4 bg-white shadow-sm overflow-hidden">
-                <button onclick="toggleStep(4)" class="step-header-screen w-full flex items-center justify-between p-5 text-left hover:bg-slate-50 print-hidden transition-colors">
-                    <div class="flex items-center gap-4">
-                        <div class="flex items-center justify-center w-10 h-10 rounded-full bg-cury-blue/10 text-cury-blue font-extrabold border border-cury-blue/20">4</div>
-                        <div class="flex items-center gap-2">
-                            <i data-lucide="check-square" class="text-cury-light"></i>
-                            <h3 class="text-lg font-bold text-cury-dark">Conclusão do Item e Evidências</h3>
-                        </div>
-                    </div>
-                    <i data-lucide="chevron-down" id="icon-4" class="text-cury-light transition-transform duration-300"></i>
-                </button>
-                <div class="step-header-print hidden print:flex items-center gap-4 p-4 bg-slate-50 border-b border-slate-200 print-bg-white">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full bg-slate-200 text-cury-blue font-extrabold border border-slate-300 print-border">4</div>
-                    <h3 class="text-xl font-bold text-cury-dark">Conclusão do Item e Evidências</h3>
-                </div>
-                
-                <div id="content-4" class="step-content bg-slate-50/50 border-t border-slate-100 print-bg-white">
-                    <div class="p-6 print:p-4">
-                        <p class="text-slate-600 font-medium mb-4">No decorrer do ano, conforme você for executando o seu PDI, os itens ficarão disponíveis para a conclusão na tela inicial do Ciclo de Performance (Aba "Pendentes"). Clique no item desejado.</p>
-                        
-                        <div class="flex justify-center">
-                            <img src="pdi-9.jpeg" alt="Ação Pendente na Home" class="print-img print-border m-0" style="width: 90%;" loading="lazy">
-                        </div>
-                        
-                        <p class="text-slate-600 font-medium mt-6 mb-4">Revise as informações da ação, clique em <strong class="text-cury-dark">"Concluir"</strong> e preencha os dados finais obrigatórios para validar o seu esforço:</p>
-
-                        <div class="bg-cury-bg p-5 rounded-lg border border-slate-200 print-bg-white print-border mb-6">
-                            <ul class="text-sm text-slate-700 space-y-3 font-medium">
-                                <li><strong class="text-cury-dark">Data de Conclusão:</strong> Quando você finalizou esta etapa.</li>
-                                <li><strong class="text-cury-dark">Eficácia:</strong> Classifique o resultado da ação (Ineficaz, Parcialmente Eficaz, Eficaz ou Totalmente Eficaz).</li>
-                                <li><strong class="text-cury-dark">Comentários Finais:</strong> Faça um breve resumo sobre o que foi aprendido/entregue.</li>
-                                <li><strong class="text-cury-dark">Evidências (Anexos):</strong> Suba arquivos que comprovem a execução (Diplomas, certificados, prints de reuniões, e-mails de projetos, etc.). <span class="text-xs text-cury-orange">*Atenção ao limite de tamanho do arquivo na LG.</span></li>
-                            </ul>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="flex justify-center">
-                                <img src="pdi-10.jpeg" alt="Tela de Conclusão" class="print-img print-border m-0" style="width: 90%;" loading="lazy">
-                            </div>
-                            <div class="flex justify-center">
-                                <img src="pdi-11.jpeg" alt="Tela de Evidência" class="print-img print-border m-0" style="width: 90%;" loading="lazy">
-                            </div>
-                        </div>
-
-                    </div>
                 </div>
             </div>
 
@@ -423,7 +192,7 @@
     </main>
 
     <footer class="bg-cury-dark text-white p-8 w-full border-t-4 border-cury-blue mt-auto">
-        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
             <div class="space-y-3 w-full md:w-auto text-center md:text-left">
                 <h4 class="font-extrabold text-xl">Dúvidas sobre os processos?</h4>
                 <p class="text-cury-light text-sm">Fale com a gente: <strong><a href="mailto:remuneracao.rh@cury.net" class="hover:underline text-white">remuneracao.rh@cury.net</a></strong></p>
@@ -431,8 +200,8 @@
             
             <div class="text-center md:text-right w-full md:w-auto border-t border-white/20 md:border-t-0 pt-4 md:pt-0">
                 <div class="flex justify-center md:justify-end gap-4 mb-3">
-                    <img src="hashtag1.png" alt="#CulturaConcreta" class="h-6 w-auto opacity-90 print:invert-0">
-                    <img src="hashtag2.png" alt="#SomosCury" class="h-6 w-auto opacity-90 print:invert-0">
+                    <img src="hashtag1.png" alt="#CulturaConcreta" class="h-6 w-auto opacity-90">
+                    <img src="hashtag2.png" alt="#SomosCury" class="h-6 w-auto opacity-90">
                 </div>
                 <p class="font-bold text-base">RH - Remuneração & Cargos e Salários</p>
                 <p class="mt-1 text-cury-light text-xs font-medium">Uso restrito e interno Cury Construtora</p>
@@ -441,60 +210,8 @@
     </footer>
 
     <script>
+        // Inicializa os ícones
         lucide.createIcons();
-
-        const openSteps = { 1: false, 2: false, 3: false, 4: false };
-
-        for (let i = 1; i <= 4; i++) {
-            updateStepView(i);
-        }
-
-        function toggleStep(stepNumber) {
-            const isOpening = !openSteps[stepNumber];
-            
-            for (let i = 1; i <= 4; i++) {
-                openSteps[i] = false;
-                updateStepView(i);
-            }
-
-            if (isOpening) {
-                openSteps[stepNumber] = true;
-                updateStepView(stepNumber);
-            }
-        }
-
-        function updateStepView(stepNumber) {
-            const content = document.getElementById(`content-${stepNumber}`);
-            const icon = document.getElementById(`icon-${stepNumber}`);
-            
-            if (openSteps[stepNumber]) {
-                content.classList.add('open');
-                icon.style.transform = 'rotate(180deg)';
-            } else {
-                content.classList.remove('open');
-                icon.style.transform = 'rotate(0deg)';
-            }
-        }
-
-        // Função para abrir e fechar o Menu Lateral
-        function toggleMenu() {
-            const menu = document.getElementById('side-menu');
-            const overlay = document.getElementById('side-menu-overlay');
-            
-            if (menu.classList.contains('-translate-x-full')) {
-                // Abrir Menu
-                menu.classList.remove('-translate-x-full');
-                overlay.classList.remove('hidden');
-                // Pequeno delay para a transição de opacidade do fundo escuro
-                setTimeout(() => overlay.classList.remove('opacity-0'), 10);
-            } else {
-                // Fechar Menu
-                menu.classList.add('-translate-x-full');
-                overlay.classList.add('opacity-0');
-                // Aguarda a animação terminar antes de esconder a div do fundo escuro
-                setTimeout(() => overlay.classList.add('hidden'), 300);
-            }
-        }
     </script>
 </body>
 </html>
