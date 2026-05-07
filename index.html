@@ -65,13 +65,11 @@
             margin-top: 1rem;
             margin-bottom: 1rem;
             box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            cursor: zoom-in; /* Cursor de lupa */
+            cursor: zoom-in;
             transition: opacity 0.2s;
         }
         
-        .print-img:hover {
-            opacity: 0.85; /* Efeito hover para indicar clique */
-        }
+        .print-img:hover { opacity: 0.85; }
 
         @media print {
             @page { margin: 1cm; }
@@ -118,9 +116,7 @@
                 <i data-lucide="target" class="w-5 h-5 text-cury-green"></i>
                 Ciclo de Metas
             </a>
-            
             <div class="w-full h-px bg-slate-200 my-2"></div>
-            
             <div class="flex items-center gap-3 p-3 rounded-lg bg-cury-blue/10 text-cury-blue font-bold border border-cury-blue/20">
                 <i data-lucide="trending-up" class="w-5 h-5"></i>
                 Guia do PDI
@@ -136,12 +132,10 @@
     <header class="bg-cury-dark text-white border-b-4 border-cury-green sticky top-0 z-50 shadow-md print:static print:shadow-none">
         <div class="max-w-5xl mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-4">
-                
                 <button onclick="toggleMenu()" class="p-2 -ml-2 hover:bg-white/10 rounded-lg transition-colors print:hidden flex items-center justify-center">
                     <i data-lucide="menu" class="w-6 h-6"></i>
                 </button>
                 <div class="h-8 w-px bg-white/20 print:hidden hidden md:block"></div>
-
                 <img src="logo.png" alt="Logo Cury" class="h-10 w-auto print:invert-0" onerror="this.src='https://placehold.co/100x40/17379b/ffffff?text=CURY'">
                 <div class="h-8 w-px bg-white/20 hidden md:block print:bg-slate-400"></div>
                 <div>
@@ -184,38 +178,32 @@
                     <span class="text-[13px] font-bold text-center mb-1 text-cury-orange print-text-dark">08/05</span>
                     <span class="text-[11px] text-slate-700 text-center font-medium leading-tight">Reuniões de Alinhamento (10h e 15h)</span>
                 </div>
-                
                 <div class="flex flex-col items-center p-4 rounded-xl border-2 border-slate-200 bg-white print-border print-bg-white">
                     <div class="p-3 rounded-full mb-3 bg-slate-100 text-slate-500 print-bg-white print-border"><i data-lucide="pen-tool"></i></div>
                     <span class="text-[13px] font-bold text-center mb-1 text-cury-dark">11/05 a 18/05</span>
                     <span class="text-[11px] text-slate-600 text-center font-medium leading-tight">Inserção de Ações e Contratação</span>
                 </div>
-                
                 <div class="flex flex-col items-center p-4 rounded-xl border-2 border-slate-200 bg-white print-border print-bg-white">
                     <div class="p-3 rounded-full mb-3 bg-slate-100 text-slate-500 print-bg-white print-border"><i data-lucide="user-check"></i></div>
                     <span class="text-[13px] font-bold text-center mb-1 text-cury-dark">19/05 a 26/05</span>
                     <span class="text-[11px] text-slate-600 text-center font-medium leading-tight">Validação do Gestor e Visto Final</span>
                 </div>
-                
                 <div class="flex flex-col items-center p-4 rounded-xl border-2 border-slate-200 bg-white print-border print-bg-white">
                     <div class="p-3 rounded-full mb-3 bg-slate-100 text-slate-500 print-bg-white print-border"><i data-lucide="check-square"></i></div>
                     <span class="text-[13px] font-bold text-center mb-1 text-cury-dark">27/05 a 05/06</span>
                     <span class="text-[11px] text-slate-600 text-center font-medium leading-tight">Validação Oficial pelo RH</span>
                 </div>
-                
                 <div class="flex flex-col items-center p-4 rounded-xl border-2 border-slate-200 bg-white print-border print-bg-white">
                     <div class="p-3 rounded-full mb-3 bg-slate-100 text-slate-500 print-bg-white print-border"><i data-lucide="search"></i></div>
                     <span class="text-[13px] font-bold text-center mb-1 text-cury-dark">31/08 e 26/11</span>
                     <span class="text-[11px] text-slate-600 text-center font-medium leading-tight">Acompanhamentos pelo RH</span>
                 </div>
-                
                 <div class="flex flex-col items-center p-4 rounded-xl border-2 border-slate-200 bg-white print-border print-bg-white">
                     <div class="p-3 rounded-full mb-3 bg-slate-100 text-slate-500 print-bg-white print-border"><i data-lucide="flag"></i></div>
                     <span class="text-[13px] font-bold text-center mb-1 text-cury-dark">27/11/2026</span>
                     <span class="text-[11px] text-slate-600 text-center font-medium leading-tight">Encerramento do PDI no Ciclo</span>
                 </div>
             </div>
-            
             <p class="text-xs text-slate-500 mt-4 text-center font-medium">* O cumprimento dos prazos é essencial para garantir a consistência e a efetividade do processo.</p>
         </section>
 
@@ -243,15 +231,10 @@
                 <div id="content-1" class="step-content bg-slate-50/50 border-t border-slate-100 print-bg-white">
                     <div class="p-6 print:p-4">
                         <p class="text-slate-600 font-medium">Na sua tela inicial do autoatendimento da LG, clique em <strong class="text-cury-dark">CICLO DE PERFORMANCE</strong>.</p>
-                        
                         <img src="pdi-1.jpg" alt="Tela Inicial LG" class="print-img print-border" loading="lazy" onclick="openLightbox(this.src)">
-                        
                         <p class="text-slate-600 font-medium mt-4">Na aba <strong class="text-cury-dark">"ATIVIDADES PENDENTES"</strong>, localize a atividade para iniciar preparação. Verifique se você está acessando o ciclo de <strong class="text-cury-dark">2026</strong>.</p>
-                        
                         <img src="pdi-2.jpeg" alt="Atividades Pendentes" class="print-img print-border" loading="lazy" onclick="openLightbox(this.src)">
-                        
                         <p class="text-slate-600 font-medium mt-4">Identifique a área de inclusão do PDI, acessando o caminho: <strong class="text-cury-dark">"Incluir" &gt; "Incluir ações avulsas"</strong>.</p>
-                        
                         <img src="pdi-3.jpeg" alt="Incluir Ações" class="print-img print-border" loading="lazy" onclick="openLightbox(this.src)">
                     </div>
                 </div>
@@ -282,7 +265,7 @@
                         </div>
 
                         <p class="text-slate-600 font-medium mb-4">Defina os itens de cada campo do PDI, preenchendo corretamente as informações obrigatórias:</p>
-                        <ul class="list-disc pl-5 text-sm text-slate-700 font-medium space-y-1 mb-6">
+                        <ul class="list-disc pl-5 text-sm text-slate-700 font-medium space-y-1 mb-8">
                             <li>Item a ser desenvolvido (Ex: Comunicação, Foco no Resultado).</li>
                             <li>Tipo de ação (Formal, Vivencial ou Social).</li>
                             <li>Nome da ação.</li>
@@ -291,47 +274,36 @@
                             <li>Período da ação (Não se esqueça de incluir prazos claros!).</li>
                         </ul>
                         
-                        <div class="grid md:grid-cols-3 gap-4 mb-6">
-                            <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm border-t-4 border-t-cury-blue print-border">
-                                <h4 class="font-bold text-cury-blue mb-1 text-sm print-text-dark">Ações Formais</h4>
-                                <p class="text-xs text-slate-600 font-medium">Treinamentos, cursos, workshops, certificações e palestras oficiais.</p>
-                            </div>
-                            <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm border-t-4 border-t-cury-purple print-border">
-                                <h4 class="font-bold text-cury-purple mb-1 text-sm print-text-dark">Aprendizado Social</h4>
-                                <p class="text-xs text-slate-600 font-medium">Mentorias, shadowing, rodas de conversa e feedbacks com lideranças.</p>
-                            </div>
-                            <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm border-t-4 border-t-cury-green print-border">
-                                <h4 class="font-bold text-cury-green mb-1 text-sm print-text-dark">Ações Vivenciais</h4>
-                                <p class="text-xs text-slate-600 font-medium">Experiências práticas: assumir novos projetos ou resolver novos problemas.</p>
-                            </div>
-                        </div>
-
-                        <div class="mb-8 flex flex-col items-center">
-                            <span class="text-sm font-bold text-cury-dark mb-2 text-center w-full">Campos de Inclusão Vazios</span>
+                        <div class="mb-12 flex flex-col items-center">
+                            <span class="text-sm font-bold text-cury-dark mb-2 text-center w-full uppercase tracking-widest">Tela de Cadastro (Campos Vazios)</span>
                             <div class="flex justify-center w-full">
-                                <img src="pdi-4.jpeg" alt="Campos de Inclusão" class="print-img print-border m-0" style="width: 50%;" loading="lazy" onclick="openLightbox(this.src)">
+                                <img src="pdi-4.jpeg" alt="Campos de Inclusão" class="print-img print-border m-0 shadow-lg" style="width: 50%;" loading="lazy" onclick="openLightbox(this.src)">
                             </div>
                         </div>
 
-                        <h4 class="font-bold text-cury-dark mt-8 mb-4 text-center text-lg">Exemplos Práticos de Preenchimento (Modelo 70:20:10)</h4>
+                        <h4 class="font-bold text-cury-dark mt-8 mb-6 text-center text-xl border-b-2 border-cury-blue/20 pb-2">Exemplos Práticos de Preenchimento (Modelo 70:20:10)</h4>
                         
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 items-start">
-                            <div class="flex flex-col items-center bg-white p-3 rounded-xl border border-slate-200 shadow-sm print-border hover:border-cury-green transition-colors">
-                                <span class="text-[11px] font-bold text-white bg-cury-green px-3 py-1 rounded-full mb-3 text-center uppercase tracking-wider shadow-sm print-text-dark print-bg-white print-border">70% Vivencial</span>
+                            <div class="flex flex-col items-center bg-white p-4 rounded-xl border-2 border-slate-200 shadow-sm print-border hover:border-cury-green transition-colors">
+                                <span class="text-[12px] font-bold text-white bg-cury-green px-4 py-1 rounded-full mb-3 uppercase tracking-wider shadow-sm print-text-dark print-bg-white print-border">70% Vivencial</span>
+                                <p class="text-xs text-slate-600 font-medium text-center mb-4 min-h-[40px]">Experiências práticas: assumir novos projetos, novas responsabilidades ou resolver problemas reais.</p>
                                 <img src="pdi-5-acoes-vivenciais.jpeg" alt="Exemplo Vivencial" class="print-img print-border m-0 w-full" loading="lazy" onclick="openLightbox(this.src)">
                             </div>
-                            <div class="flex flex-col items-center bg-white p-3 rounded-xl border border-slate-200 shadow-sm print-border hover:border-cury-purple transition-colors">
-                                <span class="text-[11px] font-bold text-white bg-cury-purple px-3 py-1 rounded-full mb-3 text-center uppercase tracking-wider shadow-sm print-text-dark print-bg-white print-border">20% Social/Aprendizado</span>
+                            
+                            <div class="flex flex-col items-center bg-white p-4 rounded-xl border-2 border-slate-200 shadow-sm print-border hover:border-cury-purple transition-colors">
+                                <span class="text-[12px] font-bold text-white bg-cury-purple px-4 py-1 rounded-full mb-3 uppercase tracking-wider shadow-sm print-text-dark print-bg-white print-border">20% Social</span>
+                                <p class="text-xs text-slate-600 font-medium text-center mb-4 min-h-[40px]">Mentorias, sessões de feedback com o gestor e observação de profissionais referência (Shadowing).</p>
                                 <img src="pdi-5-acoes-de-aprendizado.jpeg" alt="Exemplo Aprendizado" class="print-img print-border m-0 w-full" loading="lazy" onclick="openLightbox(this.src)">
                             </div>
-                            <div class="flex flex-col items-center bg-white p-3 rounded-xl border border-slate-200 shadow-sm print-border hover:border-cury-blue transition-colors">
-                                <span class="text-[11px] font-bold text-white bg-cury-blue px-3 py-1 rounded-full mb-3 text-center uppercase tracking-wider shadow-sm print-text-dark print-bg-white print-border">10% Formal</span>
+                            
+                            <div class="flex flex-col items-center bg-white p-4 rounded-xl border-2 border-slate-200 shadow-sm print-border hover:border-cury-blue transition-colors">
+                                <span class="text-[12px] font-bold text-white bg-cury-blue px-4 py-1 rounded-full mb-3 uppercase tracking-wider shadow-sm print-text-dark print-bg-white print-border">10% Formal</span>
+                                <p class="text-xs text-slate-600 font-medium text-center mb-4 min-h-[40px]">Treinamentos, cursos online ou presenciais, certificações e palestras oficiais.</p>
                                 <img src="pdi-5-acoes-formais.jpeg" alt="Exemplo Formal" class="print-img print-border m-0 w-full" loading="lazy" onclick="openLightbox(this.src)">
                             </div>
                         </div>
 
                         <p class="text-slate-600 font-medium mt-6">Após incluir entre 3 e 5 ações, o profissional deverá concluir o preenchimento na tela principal. O fluxo seguirá automaticamente para o gestor responsável.</p>
-                        
                         <img src="pdi-6.jpeg" alt="Concluir PDI" class="print-img print-border" loading="lazy" onclick="openLightbox(this.src)">
                     </div>
                 </div>
@@ -391,7 +363,7 @@
                         <p class="text-slate-600 font-medium mb-4">No decorrer do ano, conforme você for executando o seu PDI, os items ficarão disponíveis para a conclusão na tela inicial do Ciclo de Performance (Aba "Pendentes"). Clique no item desejado.</p>
                         
                         <div class="flex justify-center">
-                            <img src="pdi-9.jpeg" alt="Ação Pendente na Home" class="print-img print-border m-0" style="width: 90%;" loading="lazy" onclick="openLightbox(this.src)">
+                            <img src="pdi-9.jpeg" alt="Ação Pendente na Home" class="print-img print-border m-0 shadow-md" style="width: 90%;" loading="lazy" onclick="openLightbox(this.src)">
                         </div>
                         
                         <p class="text-slate-600 font-medium mt-6 mb-4">Revise as informações da ação, clique em <strong class="text-cury-dark">"Concluir"</strong> e preencha os dados finais obrigatórios para validar o seu esforço:</p>
@@ -407,10 +379,10 @@
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="flex justify-center">
-                                <img src="pdi-10.jpeg" alt="Tela de Conclusão" class="print-img print-border m-0" style="width: 90%;" loading="lazy" onclick="openLightbox(this.src)">
+                                <img src="pdi-10.jpeg" alt="Tela de Conclusão" class="print-img print-border m-0 shadow-sm" style="width: 90%;" loading="lazy" onclick="openLightbox(this.src)">
                             </div>
                             <div class="flex justify-center">
-                                <img src="pdi-11.jpeg" alt="Tela de Evidência" class="print-img print-border m-0" style="width: 90%;" loading="lazy" onclick="openLightbox(this.src)">
+                                <img src="pdi-11.jpeg" alt="Tela de Evidência" class="print-img print-border m-0 shadow-sm" style="width: 90%;" loading="lazy" onclick="openLightbox(this.src)">
                             </div>
                         </div>
 
@@ -435,7 +407,7 @@
                     <img src="hashtag2.png" alt="#SomosCury" class="h-6 w-auto opacity-90 print:invert-0">
                 </div>
                 <p class="font-bold text-base">RH - Treinamento & Desenvolvimento</p>
-                <p class="mt-1 text-cury-light text-xs font-medium">Atenção dos prazos</p>
+                <p class="mt-1 text-cury-light text-xs font-medium">Uso restrito e interno Cury Construtora</p>
             </div>
         </div>
     </footer>
@@ -445,6 +417,7 @@
             <i data-lucide="x" class="w-10 h-10"></i>
         </button>
         <img id="lightbox-img" src="" class="max-h-[90vh] max-w-[95vw] object-contain rounded-lg shadow-2xl cursor-default" onclick="event.stopPropagation()">
+        <p class="text-white/60 text-sm mt-4 font-medium uppercase tracking-widest">Clique fora para fechar</p>
     </div>
 
     <script>
@@ -458,12 +431,10 @@
 
         function toggleStep(stepNumber) {
             const isOpening = !openSteps[stepNumber];
-            
             for (let i = 1; i <= 4; i++) {
                 openSteps[i] = false;
                 updateStepView(i);
             }
-
             if (isOpening) {
                 openSteps[stepNumber] = true;
                 updateStepView(stepNumber);
@@ -473,7 +444,6 @@
         function updateStepView(stepNumber) {
             const content = document.getElementById(`content-${stepNumber}`);
             const icon = document.getElementById(`icon-${stepNumber}`);
-            
             if (openSteps[stepNumber]) {
                 content.classList.add('open');
                 icon.style.transform = 'rotate(180deg)';
@@ -483,11 +453,9 @@
             }
         }
 
-        // Função para abrir e fechar o Menu Lateral
         function toggleMenu() {
             const menu = document.getElementById('side-menu');
             const overlay = document.getElementById('side-menu-overlay');
-            
             if (menu.classList.contains('-translate-x-full')) {
                 menu.classList.remove('-translate-x-full');
                 overlay.classList.remove('hidden');
@@ -499,7 +467,6 @@
             }
         }
 
-        // Funções do Lightbox (Ampliar Imagem)
         function openLightbox(src) {
             const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightbox-img');
@@ -507,6 +474,7 @@
             lightbox.classList.remove('hidden');
             lightbox.classList.add('flex');
             setTimeout(() => lightbox.classList.remove('opacity-0'), 10);
+            document.body.style.overflow = 'hidden';
         }
 
         function closeLightbox() {
@@ -515,6 +483,7 @@
             setTimeout(() => {
                 lightbox.classList.add('hidden');
                 lightbox.classList.remove('flex');
+                document.body.style.overflow = 'auto';
             }, 300);
         }
     </script>
